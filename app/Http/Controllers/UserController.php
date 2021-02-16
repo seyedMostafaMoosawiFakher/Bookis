@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-//my
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
+/*
+    the routes
+|| metod    || rout            || rout name   || App\Http\Controllers\AuthController@index   | web        |
+
+| GET|HEAD  | user             | user.index   | App\Http\Controllers\UserController@index   | web        |
+| POST      | user             | user.store   | App\Http\Controllers\UserController@store   | web        |
+| GET|HEAD  | user/create      | user.create  | App\Http\Controllers\UserController@create  | web        |
+| GET|HEAD  | user/{user}      | user.show    | App\Http\Controllers\UserController@show    | web        |
+| PUT|PATCH | user/{user}      | user.update  | App\Http\Controllers\UserController@update  | web        |
+| DELETE    | user/{user}      | user.destroy | App\Http\Controllers\UserController@destroy | web        |
+| GET|HEAD  | user/{user}/edit | user.edit    | App\Http\Controllers\UserController@edit    | web        |
+*/
 
 class UserController extends Controller
 {
@@ -18,8 +30,13 @@ class UserController extends Controller
      */
     public function index()
     {
+//        route = http://localhost:8000/user
+//        route name = user.index
+//        route metod = get|head
+
         $users = User::all();
 
+//بعدا پیجینیت می شود.//
 //        $users = User::latest()->paginate(12);
 
         return view('layers.users', compact('users'));
@@ -33,6 +50,10 @@ class UserController extends Controller
      */
     public function create()
     {
+//        route = http://localhost:8000/user/create
+//        route name = user.create
+//        route metod = get|head
+
 //        return view('createUser');
     }
 
@@ -44,6 +65,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+//        route = http://localhost:8000/user
+//        route name = user.store
+//        route metod = post
+
         $user = User::create([]);
 
         //validation
@@ -51,6 +76,7 @@ class UserController extends Controller
 //        $request->validate([
 //            'title' => 'required',
 //            'body' => 'required'
+//            'email' =>'required|email|unique:users',
 //        ]);
 
         //create user
@@ -75,6 +101,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+//        route = http://localhost:8000/user/{user}
+//        route name = user.show
+//        route metod = get|head
+
         return 'the user id is ' . $user->id;
 
 //        return view('user', compact(['user']));
@@ -88,6 +118,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+//        route = http://localhost:8000/user/{user}/edit
+//        route name = user.edit
+//        route metod = get|head
         //
     }
 
@@ -100,6 +133,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+//        route = http://localhost:8000/user/{user}
+//        route name = user.update
+//        route metod = put|patch
+
         //
     }
 
@@ -111,11 +148,16 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+//        route = http://localhost:8000/user/{user}
+//        route name = user.destroy
+//        route metod = delete
+
         $message = 'the user namber '. $user->id . ' deletes';
 
         $user->delete();
 
-        return $message;
+//        return $message;
+        return redirect()->route('index');
 
     }
 }
