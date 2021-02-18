@@ -12,7 +12,8 @@
                 <button type="submit" class="input-group-prepend"  style="border-top-left-radius: 0.90rem; border-bottom-left-radius: 0.90rem;">go</button>
             </div>
         </div>
-        @if($errors->any())
+        <input type="hidden" name="backUrl" value="{{URL::full()}}">
+    @if($errors->any())
             <div class="row mt-3">
                 @if($errors->has('auth'))
                     <ul>

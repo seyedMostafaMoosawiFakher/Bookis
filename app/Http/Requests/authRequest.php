@@ -43,21 +43,21 @@ class authRequest extends FormRequest
 //                    }
 //            },
 
-        //            آیا متن وارد شده یک شماره موبایل است؟
+        //            آیا متن وارد شده یک شماره موبایل یا ایمیل معتبر است؟
                 function($attribute, $value, $fail){
-                    if(!$this->isMobileNumber($value))
+                    if(!$this->isMobileNumber($value)||$this->isEmailAddress($value))
                     {
                         $fail('The '.$attribute.' is not  mobile number.');
                     }
             },
 
         //            آیا متن وارد شده یک ایمیل است؟
-                function($attribute, $value, $fail){
-                    if(!$this->isEmailAddress($value))
-                    {
-                        $fail('The '.$attribute.' is not  email address.');
-                    }
-            },
+//                function($attribute, $value, $fail){
+//                    if(!$this->isEmailAddress($value))
+//                    {
+//                        $fail('The '.$attribute.' is not  email address.');
+//                    }
+//            },
 
 //    کار نکرد:        برای هندل اینکه استرینگ هم بتواند عدد باشد و هم حروف و هم ایمیل
 
@@ -87,6 +87,8 @@ class authRequest extends FormRequest
     //    آیا رشته شماره موبایل است؟
     private function isMobileNumber ($request)
     {
+
+//        dd($this->isNumber($request),$this->isMobileLenght($request),$this->isIranianMobile($request));
         //            آیا شماره موبایل است؟
         if($this->isNumber($request)&&$this->isMobileLenght($request)&&$this->isIranianMobile($request))
         {

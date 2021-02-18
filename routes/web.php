@@ -16,7 +16,9 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::resource('user',UserController::class);
-Route::resource('auth',AuthController::class);
+
+Route::resource('auth',AuthController::class)->except(['create']);
+Route::post('/auth/create',[AuthController::class, 'create'])->name('auth.create');
 
 
 
@@ -59,4 +61,4 @@ Route::resource('auth',AuthController::class);
 
 //روتهای اتنتیکیت خودم
 //Route::get('/authenticate', [\App\Http\Controllers\AuthController::class, 'create'])->name('authenticate');
-//Route::post('/authenticate', [\App\Http\Controllers\AuthController::class, 'store'])->name('onauthenticate');
+////Route::post('/authenticate', [\App\Http\Controllers\AuthController::class, 'store'])->name('onauthenticate');

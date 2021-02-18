@@ -13,7 +13,9 @@ class User extends Authenticatable
 {
     use HasFactory;
     use HasRoles;
-
+    protected $table = 'users';
+    protected $fillable = ['email', 'mobile'];
+    protected $guarded = ['id','created_at','updated_at'];
 
 
 }

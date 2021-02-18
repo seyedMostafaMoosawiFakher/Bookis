@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\authRequest;
+use App\Models\Otp;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 
 /*
@@ -38,39 +41,84 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $otpId = $request->id;
+        $otp = Otp::find([$otpId])->first();
+
+//        $currentDate = date('m/d/Y h:i:s a', time());
+
+          $currentDate = Carbon::now();
+          $maxOtpTime = $otp->created_at->addMinutes(1);
+
+//        dd($request->realOtp,$request->otp,$currentDate,$maxOtpTime);
+        if($request->realOtp==$request->otp&&$currentDate<=$maxOtpTime)
+        {
+            $otp->update(['mobile' => $request->mobile]);
+
+//این چرا کار نکرد؟
+//            Otp::update([
+//                'mobile' => $request->mobile,
+//            ]);
+        return redirect($request->backUrl);
+        }
+        else
+        {
+            dd('time out');
+            return redirect($request->backUrl);
+        }
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function store(authRequest $request)
     {
         //شناخت نوع متن دریافتی
 
-        $request = trim($request->auth);
+        $req = trim($request->auth);
 
 
-        if($this->isEmpty($request))
+        if($this->isEmpty($req))
         {
-            echo('رشته خالی است.');
+            // رشته خالی است.
+
+            return redirect($request->backUrl);
         }
-        else if($this->isMobileNumber($request))
+        else if($this->isMobileNumber($req))
         {
-            echo('رشته شماره موبایل  است.');
+            // رشته شماره موبایل  است.
+
+
+            $realOtp = rand(4324,9234);
+//            $realOtp = '1111';
+                $otp = Otp::create([
+                    'otp' => $realOtp,
+                ]);
+
+            //ارسال کد اعتبار سنجی به کاربر در اس ام اس
+//
+            //رفتن به روت گرفتن کد اعتبار سنجی otp
+
+            return view('layers.getOtpNumber', compact(['req','otp']));
         }
-        else if($this->isEmailAddress($request))
+        else if($this->isEmailAddress($req))
         {
-            echo('رشته ایمیل  است.');
+            //  رشته ایمیل  است.
+
+//            User::create([
+//                'email' => $req,
+//            ]);
         }
         else
         {
-            echo('رشته ایمیل یا شماره موبایل نیست..');
+            // رشته ایمیل یا شماره موبایل نیست..
+
+            return redirect($request->backUrl);
         }
 
 
