@@ -51,7 +51,14 @@ class authRequest extends FormRequest
                     }
             },
 
-        //            آیا متن وارد شده یک ایمیل است؟
+        //            آیا متن وارد شده یک شماره موبایل معتبر است؟
+//                function($attribute, $value, $fail) {
+//                    if (!$this->isMobileNumber($value)) {
+//                        $fail('The ' . $attribute . ' is not a current mobile number.');
+//                    }
+//                },
+
+        //            },        //            آیا متن وارد شده یک ایمیل است؟
 //                function($attribute, $value, $fail){
 //                    if(!$this->isEmailAddress($value))
 //                    {
@@ -75,7 +82,7 @@ class authRequest extends FormRequest
 
     //آیا رشته خالی است؟
 
-//    private function isEmpty ($request)
+    //    private function isEmpty ($request)
 //    {
 //        //آیا رشته خالی است؟
 //
@@ -229,7 +236,7 @@ class authRequest extends FormRequest
 
 //فانکشن درون کلوژر بالا که مربوط است به: هندل استرینگ ایمیل نمریک که نشد
 
-//    private function isTrueString ($request)
+        //    private function isTrueString ($request)
 //    {
 //        کارکترهایی که می توانند درون استرینگ باشند:
 //کار نکرد

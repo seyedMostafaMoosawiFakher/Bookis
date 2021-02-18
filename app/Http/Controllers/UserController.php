@@ -63,6 +63,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
 //        route = http://localhost:8000/user

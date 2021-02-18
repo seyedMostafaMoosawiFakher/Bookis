@@ -20,17 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee93ab24-200c-4985-a772-a0872b23f2e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/OtpController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Otp.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/OtpFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_18_071158_create_otps_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/OtpSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layers/home.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/authRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/authRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layers/authenticate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/authenticate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/parts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/parts/navbar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +42,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -205,6 +206,7 @@
       <workItem from="1613544806757" duration="17638000" />
       <workItem from="1613586353421" duration="9212000" />
       <workItem from="1613631650993" duration="11770000" />
+      <workItem from="1613665382101" duration="17952000" />
     </task>
     <servers />
   </component>
@@ -236,10 +238,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="322" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1613632195972" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1613594809418">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1613679280805">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1613594809418" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1613679280805" />
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1613593840457">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -248,6 +250,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="103" y="17" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1613498361407" />
+    <state x="404" y="105" width="540" height="524" key="StructurePopup" timestamp="1613666726948">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="404" y="105" width="540" height="524" key="StructurePopup/0.0.1366.728@0.0.1366.728" timestamp="1613666726948" />
     <state width="503" height="446" key="SwitcherDM" timestamp="1613499867399">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

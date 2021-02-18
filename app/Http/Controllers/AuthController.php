@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
 
 | GET|HEAD  | auth             | auth.index   | App\Http\Controllers\AuthController@index   | web        |
 | POST      | auth             | auth.store   | App\Http\Controllers\AuthController@store   | web        |
-| GET|HEAD  | auth/create      | auth.create  | App\Http\Controllers\AuthController@create  | web        |
+| POST      | auth/create      | auth.create  | App\Http\Controllers\AuthController@create  | web        |
 | GET|HEAD  | auth/{auth}      | auth.show    | App\Http\Controllers\AuthController@show    | web        |
 | PUT|PATCH | auth/{auth}      | auth.update  | App\Http\Controllers\AuthController@update  | web        |
 | DELETE    | auth/{auth}      | auth.destroy | App\Http\Controllers\AuthController@destroy | web        |
@@ -37,46 +37,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $otpId = $request->id;
-        $otp = Otp::find([$otpId])->first();
-
-//        $currentDate = date('m/d/Y h:i:s a', time());
-
-          $currentDate = Carbon::now();
-          $maxOtpTime = $otp->created_at->addMinutes(1);
-
-//        dd($request->realOtp,$request->otp,$currentDate,$maxOtpTime);
-        if($request->realOtp==$request->otp&&$currentDate<=$maxOtpTime)
-        {
-            $otp->update(['mobile' => $request->mobile]);
-
-//این چرا کار نکرد؟
-//            Otp::update([
-//                'mobile' => $request->mobile,
-//            ]);
-        return redirect($request->backUrl);
-        }
-        else
-        {
-            dd('time out');
-            return redirect($request->backUrl);
-        }
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function store(authRequest $request)
+    public function create(authRequest $request)
     {
         //شناخت نوع متن دریافتی
 
@@ -93,18 +59,43 @@ class AuthController extends Controller
         {
             // رشته شماره موبایل  است.
 
+            //آیا شماره موبایل در او تی پی موجود است؟
 
-            $realOtp = rand(4324,9234);
-//            $realOtp = '1111';
+            $haveOtp = Otp::where('mobile', $req)->first('id');
+
+            //اگر شماره موبایل موجود است رجیستر بودن را چک میکنیم.
+            // رجیسترد نال لازم است برای هندل کردن وقتی که اصلا او تی پی نداریم
+            $registered = null;
+//dd($haveOtp->id,$req);
+            if($haveOtp!=null) {
+                $registered = Otp::where('mobile', $req)->where('otp', 'registered')->first('id');
+            }
+
+            if($registered==null)
+            {
+                //ارسال کد اعتبار سنجی به کاربر در اس ام اس
+
+                $realOtp = rand(4324,9234);
+
+                // ایجاد یک سطر او تی پی حاوی ایدی و شماره اعتبار سنجی
                 $otp = Otp::create([
                     'otp' => $realOtp,
                 ]);
+//ای دی سطر را می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
+                $otpId = $otp->id;
+                //رفتن به روت گرفتن کد اعتبار سنجی otp
 
-            //ارسال کد اعتبار سنجی به کاربر در اس ام اس
-//
-            //رفتن به روت گرفتن کد اعتبار سنجی otp
+                //در حقیقت فقط باید شماره موبایل و ای دی سطر را برای نمایش ببرد،
+                // در اینجا اس ام اس نداریم کد اعتبار سنجی اصلی را هم برای زدن می فرستیم
 
-            return view('layers.getOtpNumber', compact(['req','otp']));
+                return view('layers.getOtpNumber', compact(['req','otpId','otp']));
+            }
+            else
+                {
+                //باید لاگین کنیم.
+                    dd("user");
+                }
+
         }
         else if($this->isEmailAddress($req))
         {
@@ -121,15 +112,64 @@ class AuthController extends Controller
             return redirect($request->backUrl);
         }
 
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //        گرفتن ای دی سطری که ساخته ایم و پیدا کردن سطر
+        $otpId = $request->otpId;
 
+        //        پیدا کردن کد اعتبار سنجیی درون سطر آن سطر از او تی پی
+        $otpRow = Otp::where('id',$otpId)->first();
 
-        //if existes : login
+        //        گرفتن کد اعتبار سنجی و زمان کریتدات
 
-        //else : register
+        $realOtp = $otpRow->otp;
+        $otpCreatedAt = $otpRow->created_at;
 
+        //چک می کنیم که بیش از یک دقیقه از ساخت سطر نگذشته باشد
 
+        //        اضافه کردن یک دقیقه به زمان ساخت او تی پی
+//        در اینجا دیگر زمان ساخت در دسترس نیست. چون متد اد مینیت انرا تغییر می دهد و سپس درون مکس قرار می دهد
+        $maxOtpTime = $otpCreatedAt->addMinutes(1);
 
+        //        گرفتن زمان حال
+        $currentDate = Carbon::now();
+
+//        چک می کنیم کد ارسالی کاربر مساوی کد ارسال شده از سطر او تی پی هست یا نه
+//و چک میکنیم زمان  حال کوچکتر یا مساوی زمان ساخت او تی پی به اضافه یک دقیقه باشد.
+        if($realOtp==$request->otp&&$currentDate<=$maxOtpTime)
+        {
+
+            //یوزر را می سازیم
+            $user = User::create(['mobile'=>$request->mobile]);
+
+            //حالا آی دی یوزر را می گیریم
+            $userId =$user->id;
+
+//آی دی و شماره موبایل را درون ستون یوزر ای دی و موبایل جدول او تی پی قرار می دهیم.
+//            او تی پی را به رجیسترد تغییر می دهیم تا بدانیم کاربر ثبت نام کرده.
+            $otpRow->update([
+                'mobile' => $request->mobile,
+                'user_id' => $userId,
+                'otp' => "registered"
+            ]);
+
+// بازگشت به صفحه اصلی سایت
+            return redirect()->route('home.index');
+        }
+        else
+        {
+//اگر وقت تمام شده بود یا شماره وارد شده درست نبود.
+//آلرت می دهیم:
+            dd('کد تایید درست وارد نشده یا بیش از یک دقیقه منتظر ماندید.');
+            return redirect()->route('auth.index');
+        }
     }
 
     /**

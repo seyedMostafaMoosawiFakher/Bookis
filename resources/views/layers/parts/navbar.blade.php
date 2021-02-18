@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">خانه</a>
+                    <a class="nav-link" href="{{route('home.index')}}">خانه</a>
                 </li>
                 {{--                وقتی کاربر لاگین نیست--}}
                 @unless(auth()->user())
