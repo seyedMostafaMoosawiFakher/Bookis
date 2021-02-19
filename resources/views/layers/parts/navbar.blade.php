@@ -20,11 +20,12 @@
                     {{--                وقتی کاربر لاگین است--}}
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown">{{auth()->user()->username()}}</a>
+                           data-toggle="dropdown">{{auth()->user()->id}}</a>
                         <div class="dropdown-menu">
                             {{--                    <a href="#" class="dropdown-item"> لینک دوم </a>--}}
                             {{--                    <a href="#" class="dropdown-item"> لینک سوم </a>--}}
-                            <a href="{{route('logout')}}" class="dropdown-item"> خروج </a>
+                            <a href="{{route('auth.logout',['user'=>auth()->user()])}}" class="dropdown-item"> خروج </a>
+{{--                            <a href="{{route('logout')}}" class="dropdown-item"> خروج </a>--}}
                         </div>
                     </li>
                 @endunless

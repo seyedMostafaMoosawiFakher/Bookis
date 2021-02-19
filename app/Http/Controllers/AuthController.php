@@ -7,6 +7,7 @@ use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -73,7 +74,7 @@ class AuthController extends Controller
             if($haveOtp!=null) {
                 $registered = Otp::where('mobile', $req)->where('otp', 'registered')->first('id');
             }
-            //اگر او تی پی هست ولی رجیستر نشده یا کلا او تی پی نیست، رجیستر می کنیم.
+            //اگر او تی پی هست ولی رجیستر نشده یا کلا او تی پی نیست، ثبت نامش می کنیم.
             if($registered==null)
             {
                 //ارسال کد اعتبار سنجی به کاربر در اس ام اس
@@ -100,14 +101,30 @@ class AuthController extends Controller
                 return view('layers.getOtpNumber', compact(['req','otpId','otp']));
             }
             else
-                {
+            {
                 //باید لاگین کنیم.
 
-                    
+                // یوزر صاحب این سطر را پیدا می کنیم که همیشه یک نفر است
+                $user = Otp::find($registered)->first()->user;
+
+                // لاگین می کنیم.
+
+                Auth::login($user);
                 //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
-                //به روت اصلی ریدایرکت کینم
-                    dd("user");
-                }
+
+                Otp::create([
+                    'username' => $user->username,
+                    'password' => $user->password,
+                    'email' => $user->email,
+                    'mobile' => $user->mobile,
+                    'otp' => 'logined',
+                    'user_id' => $user->id,
+                ]);
+
+
+                //  به صفحه اصلی می فرستیم.
+                return redirect()->route('home.index');
+            }
 
         }
         else if($this->isEmailAddress($req))
@@ -153,9 +170,29 @@ class AuthController extends Controller
             else
             {
                 //باید لاگین کنیم.
+
+
+                // یوزر صاحب این سطر را پیدا می کنیم که همیشه یک نفر است
+                $user = Otp::find($registered)->first()->user;
+
+                // لاگین می کنیم.
+
+                Auth::login($user);
                 //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
+
+                Otp::create([
+                    'username' => $user->username,
+                    'password' => $user->password,
+                    'email' => $user->email,
+                    'mobile' => $user->mobile,
+                    'otp' => 'logined',
+                    'user_id' => $user->id,
+                ]);
+
                 //به روت اصلی ریدایرکت کینم
-                dd("user");
+
+                return redirect()->route('home.index');
+
             }
 
 
@@ -226,7 +263,12 @@ class AuthController extends Controller
                 'otp' => "registered"
             ]);
 
-// بازگشت به صفحه اصلی سایت
+            // لاگین هم می کنیم
+
+            Auth::login($user);
+
+            // بازگشت به صفحه اصلی سایت
+
             return redirect()->route('home.index');
         }
         else
@@ -441,6 +483,11 @@ class AuthController extends Controller
     }
 
 
+    public function logout($user){
+        Auth::logout($user);
+
+        return redirect()->route('home.index');
+    }
 
 }
 

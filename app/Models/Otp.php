@@ -11,4 +11,9 @@ class Otp extends Model
     protected $table = 'otps';
     protected $fillable = ['username','password','email','mobile','otp','user_id'];
     protected $guarded = ['id','created_at','updated_at'];
+
+    public function user ()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
