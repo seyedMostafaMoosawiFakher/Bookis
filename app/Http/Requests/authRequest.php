@@ -33,7 +33,6 @@ class authRequest extends FormRequest
 //گرفتن استرینگی که بتواند ایمیل شماره موبایل یا یوزر نیم باشد را نتوانستم هندل کنم!!!!
 //                'alpha_num'or'email'
 
-
 //            آیا متنی وارد شده است؟
 //                function($attribute, $value, $fail){
 //
@@ -45,9 +44,9 @@ class authRequest extends FormRequest
 
         //            آیا متن وارد شده یک شماره موبایل یا ایمیل معتبر است؟
                 function($attribute, $value, $fail){
-                    if(!$this->isMobileNumber($value)||$this->isEmailAddress($value))
+                    if(!($this->isMobileNumber($value)||$this->isEmailAddress($value)))
                     {
-                        $fail('The '.$attribute.' is not  mobile number.');
+                        $fail('The '.$attribute.' is not a current mobile number or email.');
                     }
             },
 

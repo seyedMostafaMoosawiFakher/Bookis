@@ -15,6 +15,9 @@ class CreateOtpsTable extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
+            $table->string('username',30)->nullable();
+            $table->string('password',10)->nullable();
+            $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('otp')->nullable();
 

@@ -66,7 +66,7 @@ class AuthController extends Controller
             //اگر شماره موبایل موجود است رجیستر بودن را چک میکنیم.
             // رجیسترد نال لازم است برای هندل کردن وقتی که اصلا او تی پی نداریم
             $registered = null;
-//dd($haveOtp->id,$req);
+
             if($haveOtp!=null) {
                 $registered = Otp::where('mobile', $req)->where('otp', 'registered')->first('id');
             }
@@ -80,9 +80,15 @@ class AuthController extends Controller
                 // ایجاد یک سطر او تی پی حاوی ایدی و شماره اعتبار سنجی
                 $otp = Otp::create([
                     'otp' => $realOtp,
+                    'mobile' => $req,
                 ]);
-//ای دی سطر را می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
+                //ای دی سطر را می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
                 $otpId = $otp->id;
+
+                //                رشته اعلام شماره موبایل را می فرستیم
+
+                $req = "شماره موبایل شما: ". $req;
+
                 //رفتن به روت گرفتن کد اعتبار سنجی otp
 
                 //در حقیقت فقط باید شماره موبایل و ای دی سطر را برای نمایش ببرد،
@@ -93,6 +99,8 @@ class AuthController extends Controller
             else
                 {
                 //باید لاگین کنیم.
+                //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
+                //به روت اصلی ریدایرکت کینم
                     dd("user");
                 }
 
@@ -101,9 +109,51 @@ class AuthController extends Controller
         {
             //  رشته ایمیل  است.
 
-//            User::create([
-//                'email' => $req,
-//            ]);
+            //آیا ایمیل در او تی پی موجود است؟
+
+            $haveOtp = Otp::where('email', $req)->first('id');
+
+            //اگر ایمیل موجود است رجیستر بودن را چک میکنیم.
+            // رجیسترد نال لازم است برای هندل کردن وقتی که اصلا او تی پی نداریم
+            $registered = null;
+
+            if($haveOtp!=null) {
+                $registered = Otp::where('email', $req)->where('otp', 'registered')->first('id');
+            }
+
+            if($registered==null)
+            {
+                //ارسال کد اعتبار سنجی به کاربر در ایمیل
+
+                $realOtp = rand(4324,9234);
+
+                // ایجاد یک سطر او تی پی حاوی ایدی و شماره اعتبار سنجی
+                $otp = Otp::create([
+                    'email' => $req,
+                    'otp' => $realOtp,
+                ]);
+                //ای دی سطر را می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
+                $otpId = $otp->id;
+
+                //                رشته اعلام شماره موبایل را می فرستیم
+
+                $req = "ایمیل شما: ". $req;
+
+                //رفتن به روت گرفتن کد اعتبار سنجی otp
+
+                //در حقیقت فقط باید ایمیل و ای دی سطر را برای نمایش ببرد،
+
+                return view('layers.getOtpNumber', compact(['req','otpId','otp']));
+            }
+            else
+            {
+                //باید لاگین کنیم.
+                //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
+                //به روت اصلی ریدایرکت کینم
+                dd("user");
+            }
+
+
         }
         else
         {
@@ -124,12 +174,19 @@ class AuthController extends Controller
         //        گرفتن ای دی سطری که ساخته ایم و پیدا کردن سطر
         $otpId = $request->otpId;
 
-        //        پیدا کردن کد اعتبار سنجیی درون سطر آن سطر از او تی پی
+        //        پیدا کردن کد اعتبار سنجی درون سطر آن سطر از او تی پی
         $otpRow = Otp::where('id',$otpId)->first();
 
-        //        گرفتن کد اعتبار سنجی و زمان کریتدات
+        //        گرفتن کد اعتبار سنجی
 
         $realOtp = $otpRow->otp;
+
+        // گرفتن شماره موبایل یا ایمیل
+
+        $mobile = $otpRow->mobile;
+        $email = $otpRow->email;
+
+        // گرفتن زمان کریتد ات
         $otpCreatedAt = $otpRow->created_at;
 
         //چک می کنیم که بیش از یک دقیقه از ساخت سطر نگذشته باشد
@@ -147,7 +204,10 @@ class AuthController extends Controller
         {
 
             //یوزر را می سازیم
-            $user = User::create(['mobile'=>$request->mobile]);
+            $user = User::create([
+                'mobile'=>$mobile,
+                'email'=>$email,
+            ]);
 
             //حالا آی دی یوزر را می گیریم
             $userId =$user->id;
@@ -155,7 +215,8 @@ class AuthController extends Controller
 //آی دی و شماره موبایل را درون ستون یوزر ای دی و موبایل جدول او تی پی قرار می دهیم.
 //            او تی پی را به رجیسترد تغییر می دهیم تا بدانیم کاربر ثبت نام کرده.
             $otpRow->update([
-                'mobile' => $request->mobile,
+                'mobile' => $mobile,
+                'email' => $email,
                 'user_id' => $userId,
                 'otp' => "registered"
             ]);
@@ -373,6 +434,8 @@ class AuthController extends Controller
         }
         return $haveOneDoteAfterAtsine;
     }
+
+
 
 }
 
