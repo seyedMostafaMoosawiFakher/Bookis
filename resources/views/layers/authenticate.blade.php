@@ -14,6 +14,7 @@
                 <button type="submit" class="input-group-prepend"  style="border-top-left-radius: 0.90rem; border-bottom-left-radius: 0.90rem;"> مرحله بعدی </button>
             </div>
         </div>
+{{--                برای وقتی که رشته خالی فرستاده و ولیدیشن رکوئست سفارشی را غیر فعال کردیم(یا هک شد)--}}
         <input type="hidden" name="backUrl" value="{{URL::full()}}">
     @if($errors->any())
         <div class="col">
