@@ -49,6 +49,7 @@ class AuthController extends Controller
 
         $req = trim($request->auth);
 
+//        اگر رشته خالی باشد
 
         if($this->isEmpty($req))
         {
@@ -56,6 +57,8 @@ class AuthController extends Controller
 
             return redirect($request->backUrl);
         }
+
+//        اگر رشته موبایل باشد
         else if($this->isMobileNumber($req))
         {
             // رشته شماره موبایل  است.
@@ -100,6 +103,7 @@ class AuthController extends Controller
 
                 return view('layers.getOtpNumber', compact(['req','otpId','otp']));
             }
+            //اگر کاربر رجیستر کرده باشد
             else
             {
                 //باید لاگین کنیم.
@@ -107,26 +111,15 @@ class AuthController extends Controller
                 // یوزر صاحب این سطر را پیدا می کنیم که همیشه یک نفر است
                 $user = Otp::find($registered)->first()->user;
 
-                // لاگین می کنیم.
 
-                Auth::login($user);
-                //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
+                // پسورد را می گیریم و چک می کنیم اگر درست بود لاگین می کنیم
+                return view('layers.getPassword',compact('user'));
 
-                Otp::create([
-                    'username' => $user->username,
-                    'password' => $user->password,
-                    'email' => $user->email,
-                    'mobile' => $user->mobile,
-                    'otp' => 'logined',
-                    'user_id' => $user->id,
-                ]);
-
-
-                //  به صفحه اصلی می فرستیم.
-                return redirect()->route('home.index');
             }
 
         }
+
+//        اگر رشته ایمیل باشد
         else if($this->isEmailAddress($req))
         {
             //  رشته ایمیل  است.
@@ -154,7 +147,8 @@ class AuthController extends Controller
                     'email' => $req,
                     'otp' => $realOtp,
                 ]);
-                //ای دی سطر را می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
+
+                //ای دی سطر را می فرستیم تا به متد ستور ارسال  شود.
                 $otpId = $otp->id;
 
                 //                رشته اعلام شماره موبایل را می فرستیم
@@ -167,40 +161,27 @@ class AuthController extends Controller
 
                 return view('layers.getOtpNumber', compact(['req','otpId','otp']));
             }
-            else
-            {
-                //باید لاگین کنیم.
 
+            //اگر کاربر قبلا رجیستر کرده باشد
+            else {
+                //باید لاگین کنیم.
 
                 // یوزر صاحب این سطر را پیدا می کنیم که همیشه یک نفر است
                 $user = Otp::find($registered)->first()->user;
 
-                // لاگین می کنیم.
-
-                Auth::login($user);
-                //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
-
-                Otp::create([
-                    'username' => $user->username,
-                    'password' => $user->password,
-                    'email' => $user->email,
-                    'mobile' => $user->mobile,
-                    'otp' => 'logined',
-                    'user_id' => $user->id,
-                ]);
-
-                //به روت اصلی ریدایرکت کینم
-
-                return redirect()->route('home.index');
-
+                // پسورد را می گیریم و چک می کنیم اگر درست بود لاگین می کنیم
+                return view('layers.getPassword', compact('user'));
             }
 
-
         }
+
+// اگر رشته ایمیل یا شماره موبایل نیست..
+//(در جایی که رکوئست رولز کار نکند یا هک شود به اینجا می رسیم.)
         else
         {
             // رشته ایمیل یا شماره موبایل نیست..
 
+            //            با الرت به کاربر نشان می دهیم
             return redirect($request->backUrl);
         }
 
@@ -213,70 +194,135 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //        گرفتن ای دی سطری که ساخته ایم و پیدا کردن سطر
-        $otpId = $request->otpId;
 
-        //        پیدا کردن کد اعتبار سنجی درون سطر آن سطر از او تی پی
-        $otpRow = Otp::where('id',$otpId)->first();
+//        پسورد را هندل کنم
+//اگر دو پسورد مطابقت ندارند
+        if($request->password!=$request->password2){
 
-        //        گرفتن کد اعتبار سنجی
-
-        $realOtp = $otpRow->otp;
-
-        // گرفتن شماره موبایل یا ایمیل
-
-        $mobile = $otpRow->mobile;
-        $email = $otpRow->email;
-
-        // گرفتن زمان کریتد ات
-        $otpCreatedAt = $otpRow->created_at;
-
-        //چک می کنیم که بیش از یک دقیقه از ساخت سطر نگذشته باشد
-
-        //        اضافه کردن یک دقیقه به زمان ساخت او تی پی
-//        در اینجا دیگر زمان ساخت در دسترس نیست. چون متد اد مینیت انرا تغییر می دهد و سپس درون مکس قرار می دهد
-        $maxOtpTime = $otpCreatedAt->addMinutes(1);
-
-        //        گرفتن زمان حال
-        $currentDate = Carbon::now();
-
-//        چک می کنیم کد ارسالی کاربر مساوی کد ارسال شده از سطر او تی پی هست یا نه
-//و چک میکنیم زمان  حال کوچکتر یا مساوی زمان ساخت او تی پی به اضافه یک دقیقه باشد.
-        if($realOtp==$request->otp&&$currentDate<=$maxOtpTime)
-        {
-
-            //یوزر را می سازیم
-            $user = User::create([
-                'mobile'=>$mobile,
-                'email'=>$email,
-            ]);
-
-            //حالا آی دی یوزر را می گیریم
-            $userId =$user->id;
-
-//آی دی و شماره موبایل را درون ستون یوزر ای دی و موبایل جدول او تی پی قرار می دهیم.
-//            او تی پی را به رجیسترد تغییر می دهیم تا بدانیم کاربر ثبت نام کرده.
-            $otpRow->update([
-                'mobile' => $mobile,
-                'email' => $email,
-                'user_id' => $userId,
-                'otp' => "registered"
-            ]);
-
-            // لاگین هم می کنیم
-
-            Auth::login($user);
-
-            // بازگشت به صفحه اصلی سایت
+//            سویت آلرت
 
             return redirect()->route('home.index');
         }
+//        اگر دو پسورد مطابقت دارند
+        else{
+            //پسورد را تعریف و مقدار دهی می کنیم
+
+            $password = $request->password;
+
+            //        گرفتن ای دی سطری که ساخته ایم و پیدا کردن سطر
+            $otpId = $request->otpId;
+
+            //        پیدا کردن کد اعتبار سنجی درون سطر آن سطر از او تی پی
+            $otpRow = Otp::where('id',$otpId)->first();
+
+            //        گرفتن کد اعتبار سنجی
+
+            $realOtp = $otpRow->otp;
+
+            // گرفتن شماره موبایل یا ایمیل
+
+            $mobile = $otpRow->mobile;
+            $email = $otpRow->email;
+
+            // گرفتن زمان کریتد ات
+            $otpCreatedAt = $otpRow->created_at;
+
+            //چک می کنیم که بیش از یک دقیقه از ساخت سطر نگذشته باشد
+
+            //        اضافه کردن یک دقیقه به زمان ساخت او تی پی
+    //        در اینجا دیگر زمان ساخت در دسترس نیست. چون متد اد مینیت انرا تغییر می دهد و سپس درون مکس قرار می دهد
+            $maxOtpTime = $otpCreatedAt->addMinutes(1);
+
+            //        گرفتن زمان حال
+            $currentDate = Carbon::now();
+
+    //        چک می کنیم کد ارسالی کاربر مساوی کد ارسال شده از سطر او تی پی هست یا نه
+    //و چک میکنیم زمان  حال کوچکتر یا مساوی زمان ساخت او تی پی به اضافه یک دقیقه باشد.
+            if($realOtp==$request->otp&&$currentDate<=$maxOtpTime)
+            {
+
+                //یوزر را می سازیم
+                $user = User::create([
+                    'mobile'=>$mobile,
+                    'email'=>$email,
+                    'password'=>$password,
+                ]);
+
+                //حالا آی دی یوزر را می گیریم
+                $userId =$user->id;
+
+    //آی دی و شماره موبایل و... را درون ستون یوزر ای دی و موبایل و... جدول او تی پی قرار می دهیم.
+    //            او تی پی را به رجیسترد تغییر می دهیم تا بدانیم کاربر ثبت نام کرده.
+                $otpRow->update([
+                    'password' => $password,
+                    'email' => $email,
+                    'mobile' => $mobile,
+                    'user_id' => $userId,
+                    'otp' => "registered"
+                ]);
+
+                // لاگین هم می کنیم
+
+                Auth::login($user);
+
+                // بازگشت به صفحه اصلی سایت
+
+                return redirect()->route('home.index');
+            }
+    //اگر وقت تمام شده بود یا شماره وارد شده درست نبود.
+            else
+            {
+    //آلرت می دهیم:
+                dd('کد تایید درست وارد نشده یا بیش از یک دقیقه منتظر ماندید.');
+                return redirect()->route('auth.index');
+            }
+        }
+    }
+
+    // چک کردن درست بودن پسورد دریافتی با پسورد یوزر و لاگین
+
+    public function login ($user, Request $request)
+    {
+        //        پسورد حقیقی یوزر را از جدول یوزرز می گریم
+        $realPassword = User::find($user)->password;
+
+        //پسوردی که الان کاربر برای لاگین زده را می گیریم
+        $currentPassword = $request->password;
+
+        //اگر پسورد وارد شده با پسورد اصلی مطابق بود لاگین می کنیم و در جدول او تی پی سیو می کنیم.
+
+        if($realPassword==$currentPassword)
+        {
+        //            یوزر را می گیریم
+        $user = User::find($user);
+
+        // لاگین می کنیم.
+        Auth::login($user);
+
+
+        //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
+
+        Otp::create([
+            'username' => $user->username,
+            'password' => $user->password,
+            'email' => $user->email,
+            'mobile' => $user->mobile,
+            'otp' => 'logined',
+            'user_id' => $user->id,
+        ]);
+
+            //  به صفحه اصلی می فرستیم.
+            return redirect()->route('home.index');
+
+        }
+//        اگر پسورد اشتباه بود
         else
         {
-//اگر وقت تمام شده بود یا شماره وارد شده درست نبود.
-//آلرت می دهیم:
-            dd('کد تایید درست وارد نشده یا بیش از یک دقیقه منتظر ماندید.');
-            return redirect()->route('auth.index');
+
+        //            یک الرت می دهیم
+
+        //  به صفحه اصلی می فرستیم.
+        return redirect()->route('home.index');
         }
     }
 

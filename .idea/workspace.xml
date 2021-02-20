@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee93ab24-200c-4985-a772-a0872b23f2e6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/layers/getPassword.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Otp.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Otp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/parts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/parts/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,14 +167,14 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views" />
+      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layouts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layers" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layers\parts" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views" />
-      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -203,7 +202,8 @@
       <workItem from="1613586353421" duration="9212000" />
       <workItem from="1613631650993" duration="11770000" />
       <workItem from="1613665382101" duration="17952000" />
-      <workItem from="1613718540557" duration="12888000" />
+      <workItem from="1613718540557" duration="15395000" />
+      <workItem from="1613755378903" duration="7511000" />
     </task>
     <servers />
   </component>

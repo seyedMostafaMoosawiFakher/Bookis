@@ -21,6 +21,7 @@ Route::resource('user',UserController::class);
 
 Route::resource('auth',AuthController::class)->except(['create']);
 Route::post('/auth/create',[AuthController::class, 'create'])->name('auth.create');
+Route::post('/login/{user}',[AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout/{user}',[AuthController::class, 'logout'])->name('auth.logout');
 
 
