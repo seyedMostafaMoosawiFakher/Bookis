@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
@@ -25,7 +26,9 @@ Route::post('/login/{user}',[AuthController::class, 'login'])->name('auth.login'
 Route::get('/logout/{user}',[AuthController::class, 'logout'])->name('auth.logout');
 
 
-
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::resource('books', BookController::class);
+});
 
 
 

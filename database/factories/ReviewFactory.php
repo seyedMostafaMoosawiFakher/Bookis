@@ -22,7 +22,10 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'review' => $this->faker->text(3000),
+            'user_id' => $this->faker->numberBetween(3,8),
+            'book_id' => $this->faker->numberBetween(3,8),
+
         ];
     }
 }

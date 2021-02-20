@@ -15,6 +15,9 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->string('review',3000)->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
