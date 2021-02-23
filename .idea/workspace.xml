@@ -20,40 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee93ab24-200c-4985-a772-a0872b23f2e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/h -u origin main" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/book_detail/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/book_detail/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/book_detail/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/book_detail/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookDetailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookDetailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Book.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/BookDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BookDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Review.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Review.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/BookDetailFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/BookDetailFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ProfileFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ReviewFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ReviewFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_15_083555_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_15_083555_create_profiles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_20_111211_create_book_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_20_111211_create_book_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/book/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/book/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/book/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/book/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/authenticate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/authenticate.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/getPassword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/getPassword.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/parts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/parts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/parts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/parts/navbar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/users.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -242,7 +212,7 @@
       <workItem from="1613930780962" duration="6394000" />
       <workItem from="1613977201583" duration="14204000" />
       <workItem from="1614010659873" duration="16574000" />
-      <workItem from="1614062963370" duration="5345000" />
+      <workItem from="1614062963370" duration="10829000" />
     </task>
     <servers />
   </component>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,16 @@ class UserController extends Controller
            'mobile' => 'numeric'
         ]);
 
-        User::create($attributes);
+        $user = User::create($attributes);
+
+        Otp::create([
+            'username' => $request->username,
+            'password' => $request->password,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'otp' => 'registered',
+            'user_id' => $user->id
+        ]);
 
         return redirect()->action([self::class, 'index'])->with(['success' => 'کاربر جدید با موفقیت ایجاد شد']);
     }

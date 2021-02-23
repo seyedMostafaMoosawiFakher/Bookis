@@ -27,31 +27,22 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+
         return view('layers.authenticate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $req
-     * @return \Illuminate\Http\Response
-     */
     public function create(authRequest $request)
     {
         //شناخت نوع متن دریافتی
 
-        $req = trim($request->auth);
+        $auth = $request->auth;
 
 //        اگر رشته خالی باشد
 
-        if($this->isEmpty($req))
+        if($this->isEmpty($auth))
         {
             // رشته خالی است.
 
@@ -59,13 +50,13 @@ class AuthController extends Controller
         }
 
 //        اگر رشته موبایل باشد
-        else if($this->isMobileNumber($req))
+        else if($this->isMobileNumber($auth))
         {
             // رشته شماره موبایل  است.
 
             //آیا شماره موبایل در او تی پی موجود است؟
 
-            $haveOtp = Otp::where('mobile', $req)->first('id');
+            $haveOtp = Otp::where('mobile', $auth)->first('id');
 
             //اگر شماره موبایل موجود نیست پس رجیستر هم نیست.
             // با همین رجیستر نال، رجیستر شدن را هندل می کنیم.
@@ -75,7 +66,7 @@ class AuthController extends Controller
             //اگر شماره موبایل موجود است رجیستر بودن را چک میکنیم.
 
             if($haveOtp!=null) {
-                $registered = Otp::where('mobile', $req)->where('otp', 'registered')->first('id');
+                $registered = Otp::where('mobile', $auth)->where('otp', 'registered')->first('id');
             }
             //اگر او تی پی هست ولی رجیستر نشده یا کلا او تی پی نیست، ثبت نامش می کنیم.
             if($registered==null)
@@ -87,21 +78,21 @@ class AuthController extends Controller
                 // ایجاد یک سطر او تی پی حاوی ایدی و شماره اعتبار سنجی
                 $otp = Otp::create([
                     'otp' => $realOtp,
-                    'mobile' => $req,
+                    'mobile' => $auth,
                 ]);
                 //ای دی سطر را به ویو می فرستیم تا به متد ستور ارسال شود و ولیدیت شود.
                 $otpId = $otp->id;
 
                 //                رشته اعلام شماره موبایل را می فرستیم
 
-                $req = "شماره موبایل شما: ". $req;
+                $auth = "شماره موبایل شما: ". $auth;
 
                 //رفتن به روت گرفتن کد اعتبار سنجی otp
 
                 //در حقیقت فقط باید شماره موبایل و ای دی سطر را برای نمایش ببرد،
                 // در اینجا اس ام اس نداریم کد اعتبار سنجی اصلی را هم برای استفاده به صورت فیک می فرستیم
 
-                return view('layers.getOtpNumber', compact(['req','otpId','otp']));
+                return view('layers.getOtpNumber', compact(['auth','otpId','otp']));
             }
             //اگر کاربر رجیستر کرده باشد
             else
@@ -120,20 +111,20 @@ class AuthController extends Controller
         }
 
 //        اگر رشته ایمیل باشد
-        else if($this->isEmailAddress($req))
+        else if($this->isEmailAddress($auth))
         {
             //  رشته ایمیل  است.
 
             //آیا ایمیل در او تی پی موجود است؟
 
-            $haveOtp = Otp::where('email', $req)->first('id');
+            $haveOtp = Otp::where('email', $auth)->first('id');
 
             //اگر ایمیل موجود است رجیستر بودن را چک میکنیم.
             // رجیسترد نال لازم است برای هندل کردن وقتی که اصلا او تی پی نداریم
             $registered = null;
 
             if($haveOtp!=null) {
-                $registered = Otp::where('email', $req)->where('otp', 'registered')->first('id');
+                $registered = Otp::where('email', $auth)->where('otp', 'registered')->first('id');
             }
 
             if($registered==null)
@@ -144,7 +135,7 @@ class AuthController extends Controller
 
                 // ایجاد یک سطر او تی پی حاوی ایدی و شماره اعتبار سنجی
                 $otp = Otp::create([
-                    'email' => $req,
+                    'email' => $auth,
                     'otp' => $realOtp,
                 ]);
 
@@ -153,13 +144,13 @@ class AuthController extends Controller
 
                 //                رشته اعلام شماره موبایل را می فرستیم
 
-                $req = "ایمیل شما: ". $req;
+                $auth = "ایمیل شما: ". $auth;
 
                 //رفتن به روت گرفتن کد اعتبار سنجی otp
 
                 //در حقیقت فقط باید ایمیل و ای دی سطر را برای نمایش ببرد،
 
-                return view('layers.getOtpNumber', compact(['req','otpId','otp']));
+                return view('layers.getOtpNumber', compact(['auth','otpId','otp']));
             }
 
             //اگر کاربر قبلا رجیستر کرده باشد
@@ -187,14 +178,8 @@ class AuthController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
 //        پسورد را هندل کنم
 //اگر دو پسورد مطابقت ندارند
         if($request->password!=$request->password2){
@@ -240,7 +225,6 @@ class AuthController extends Controller
     //و چک میکنیم زمان  حال کوچکتر یا مساوی زمان ساخت او تی پی به اضافه یک دقیقه باشد.
             if($realOtp==$request->otp&&$currentDate<=$maxOtpTime)
             {
-
                 //یوزر را می سازیم
                 $user = User::create([
                     'mobile'=>$mobile,
@@ -299,7 +283,6 @@ class AuthController extends Controller
         // لاگین می کنیم.
         Auth::login($user);
 
-
         //باید یک سطر او تی پی با او تی پی لاگیند اضافه کنیم
 
         Otp::create([
@@ -326,46 +309,21 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

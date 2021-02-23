@@ -4,7 +4,7 @@
     <div class="col mt-5">
         <div class="row justify-content-center h3 text-center">
 {{--            شماره موبایل را نمایش می دهیم--}}
-            <p> <span class="text-danger">{{$req}}</span></p>
+            <p> <span class="text-danger">{{$auth}}</span></p>
         </div>
 {{--        دریافت کد اعتبار سنجی--}}
         <div class="row justify-content-center ">
