@@ -11,6 +11,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('home.index')}}">خانه</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">مدیریت دیتابیس</a>
+                    <div class="dropdown-menu">
+                        <a href="{{route('admin.users.index')}}" class="dropdown-item"> کاربران </a>
+                        <a href="{{route('admin.books.index')}}" class="dropdown-item"> کتابها </a>
+                    </div>
+                </li>
                 {{--                وقتی کاربر لاگین نیست--}}
                 @unless(auth()->user())
                     <li class="nav-item">

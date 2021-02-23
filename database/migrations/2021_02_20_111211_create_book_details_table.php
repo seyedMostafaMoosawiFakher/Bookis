@@ -18,10 +18,9 @@ class CreateBookDetailsTable extends Migration
             $table->id();
 //نویسنده کتاب
 
-            $table->string('writters',300)->nullable();
-
+            $table->string('writter_id',300)->nullable();
 //            ناشر کتاب
-            $table->integer('Publisher_id')->nullable();
+            $table->integer('publisher_id')->nullable();
 //            تاریخ نشر
             $table->dateTimeTz('publication_date', $precision = 0)->nullable();
 //            محل نشر
@@ -33,9 +32,9 @@ class CreateBookDetailsTable extends Migration
 //تعداد صفحه
             $table->integer('number_of_pages')->nullable();
 // نام ترجمه کتاب
-            $table->string('Translation',300)->nullable();
+            $table->string('translation',300)->nullable();
 // نام مترجم
-            $table->string('Translator',300)->nullable();
+            $table->string('translator',300)->nullable();
 //منابع کتاب
             $table->string('resources',300)->nullable();
 //اتصال به جدول کتاب

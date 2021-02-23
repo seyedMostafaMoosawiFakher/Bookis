@@ -10,162 +10,92 @@ use Spatie\Permission\Models\Permission;
 
 /*
     the routes
-|| metod    || rout            || rout name   || App\Http\Controllers\AuthController@index   | web        |
+|| metod    || rout                      || rout name
 
-| GET|HEAD  | user             | user.index   | App\Http\Controllers\UserController@index   | web        |
-| POST      | user             | user.store   | App\Http\Controllers\UserController@store   | web        |
-| GET|HEAD  | user/create      | user.create  | App\Http\Controllers\UserController@create  | web        |
-| GET|HEAD  | user/{user}      | user.show    | App\Http\Controllers\UserController@show    | web        |
-| PUT|PATCH | user/{user}      | user.update  | App\Http\Controllers\UserController@update  | web        |
-| DELETE    | user/{user}      | user.destroy | App\Http\Controllers\UserController@destroy | web        |
-| GET|HEAD  | user/{user}/edit | user.edit    | App\Http\Controllers\UserController@edit    | web        |
+|| GET|HEAD  | admin/users               | admin.users.index
+|| POST      | admin/users               | admin.users.store
+|| GET|HEAD  | admin/users/create        | admin.users.create
+|| PUT|PATCH | admin/users/{user}        | admin.users.update
+|| DELETE    | admin/users/{user}        | admin.users.destroy
+|| GET|HEAD  | admin/users/{user}        | admin.users.show
+|| GET|HEAD  | admin/users/{user}/edit   | admin.users.edit
 */
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-//        route = http://localhost:8000/user
-//        route name = user.index
-//        route metod = get|head
+        $data['users'] = User::latest()->paginate(5);
 
-        $users = User::all();
-
-//بعدا پیجینیت می شود.//
-//        $users = User::latest()->paginate(12);
-
-        return view('layers.users', compact('users'));
+        return view('admin.user.index', compact('data'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-//        route = http://localhost:8000/user/create
-//        route name = user.create
-//        route metod = get|head
+        return view('admin.user.create');
 
-//        return view('createUser');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function store(Request $request)
     {
-//        route = http://localhost:8000/user
-//        route name = user.store
-//        route metod = post
+        $attributes = $request->validate([
+           'username' => 'required',
+           'password' => 'string',
+           'email' => 'email',
+           'mobile' => 'numeric'
+        ]);
 
-        $user = User::create([]);
+        User::create($attributes);
 
-        //validation
-
-//        $request->validate([
-//            'title' => 'required',
-//            'body' => 'required'
-//            'email' =>'required|email|unique:users',
-//        ]);
-
-        //create user
-
-//        User::create([
-//            'title' => $request->title,
-//            'body' => $request->body,
-//            'status' => 1,
-//            'user_id' => $request->user_id,
-//        ]);
-
-//        return redirect()->route('index');
-
-        return 'user namber ' . $user->id . ' created';
+        return redirect()->action([self::class, 'index'])->with(['success' => 'کاربر جدید با موفقیت ایجاد شد']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function show(User $user)
     {
-//        route = http://localhost:8000/user/{user}
-//        route name = user.show
-//        route metod = get|head
+//        $users = User::has('profile')->get();
+//        dd($users);
 
-        return 'the user id is ' . $user->id;
 
-//        return view('user', compact(['user']));
+        $data['user'] = $user;
+
+        return view('admin.user.show', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
-//        route = http://localhost:8000/user/{user}/edit
-//        route name = user.edit
-//        route metod = get|head
-        //
+        $data['user'] = $user;
+
+        return view('admin.user.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
-//        route = http://localhost:8000/user/{user}
-//        route name = user.update
-//        route metod = put|patch
+        $attributes = $request->validate([
+            'username' => 'required',
+            'password' => 'string',
+            'email' => 'email',
+            'mobile' => 'numeric'
+        ]);
 
-        //
+        $user->username = $attributes['username'];
+        $user->password = $attributes['password'];
+        $user->email = $attributes['email'];
+        $user->mobile = $attributes['mobile'];
+
+        $user->save();
+
+        return redirect()->action([self::class, 'index'])->with(['success' => 'مشخصات کاربر با موفقیت ویرایش شدند']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user)
     {
-//        route = http://localhost:8000/user/{user}
-//        route name = user.destroy
-//        route metod = delete
-
-        $message = 'the user namber '. $user->id . ' deletes';
-
+        $message = 'یوزر شماره '. $user->id . ' با موفقیت حذف شد.';
         $user->delete();
 
-//        return $message;
-        return redirect()->route('index');
-
+        return redirect()->action([self::class, 'index'])->with(['success' => $message]);
     }
+
 }
 
-
-//        $master = Role::create(['name' => 'master']);
-//        $writer = Role::create(['name' => 'writer']);
-//        $member = Role::create(['name' => 'member']);
-//        $user->assignRole('master');
 

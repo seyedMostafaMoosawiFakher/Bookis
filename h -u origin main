@@ -1,0 +1,65 @@
+[33mcommit 11fcf70ba7c2b902ca1997ee99eabbd31dea894c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Sun Feb 21 02:08:32 2021 +0330
+
+    creating book controller and afew models and migrations and factoris
+
+[33mcommit 46c37b0c76d054a062afd754988fb114d72b1c25[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Sat Feb 20 10:24:31 2021 +0330
+
+    login with email or mobile by pass word completed
+
+[33mcommit 297007aa5f5c9cffaae69b86b462e3104a6817a4[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Fri Feb 19 14:58:12 2021 +0330
+
+    create logout + a few cleaning
+
+[33mcommit b14d069d1bf17cfff549e1bd87ec77929c187927[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Fri Feb 19 12:58:51 2021 +0330
+
+    organize some code  comments
+
+[33mcommit e7389aac150839691cfc0f998beb49f515a9e9e9[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Fri Feb 19 12:21:21 2021 +0330
+
+    we can register with mobile and email
+
+[33mcommit 1000bcaed190d66fc8034d30e61b35558f670c37[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Fri Feb 19 01:21:33 2021 +0330
+
+    end of register with mobile
+
+[33mcommit d25c0e68095e3790dacf46dd74bb6e896a72f6b0[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Thu Feb 18 13:50:48 2021 +0330
+
+    the login with mobile by sms
+
+[33mcommit abb4d7ab92823e2f219bcef5c0a4f581c1e036ed[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Thu Feb 18 00:02:57 2021 +0330
+
+    the login form is ok for Email or mobile number
+
+[33mcommit 026db4e0de0a217afde0c7bde3e2fc4d5c6f6494[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Wed Feb 17 02:09:43 2021 +0330
+
+    check login string
+
+[33mcommit 04bba4ad7f70cffe79c431a73670f0357a977f31[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Tue Feb 16 10:14:33 2021 +0330
+
+    create sampel user
+
+[33mcommit de018cb090ae53e2ab523c1829c542340375a5ca[m
+Author: seyedMostafaMoosawiFakher <smmf1363@yahoo.com>
+Date:   Mon Feb 15 14:12:06 2021 +0330
+
+    the first initial

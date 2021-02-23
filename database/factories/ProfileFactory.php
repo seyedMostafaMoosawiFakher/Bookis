@@ -28,8 +28,8 @@ class ProfileFactory extends Factory
         'education' => $this->faker->text(50),
         'job' => $this->faker->text(50),
         'biography' => $this->faker->text(2000),
-        'Favorits-reading' => $this->faker->text(50),
-        'user_id' => $this->faker->numberBetween(1,8)
+        'favorits_reading' => $this->faker->text(50),
+        'user_id' => $this->faker->numberBetween(1,10)
         ];
     }
 }

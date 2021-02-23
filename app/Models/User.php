@@ -19,4 +19,8 @@ class User extends Authenticatable
         return $this->hasMany(Otp::class);
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

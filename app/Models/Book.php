@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-
+    protected $table = 'books';
     protected $fillable = [
         'name',
+        'subject',
+        'language',
         'description'
     ];
+
+    public function bookDetails()
+    {
+        return $this->hasOne(BookDetail::class);
+    }
 }

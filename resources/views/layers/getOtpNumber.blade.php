@@ -1,4 +1,4 @@
-@extends('layers.parts.master')
+@extends('parts.master')
 @section('content')
 <div class="container">
     <div class="col mt-5">

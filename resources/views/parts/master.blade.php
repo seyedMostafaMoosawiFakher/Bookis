@@ -16,7 +16,7 @@
 </head>
 <body>
 {{-- نو بار پارشیال شده --}}
-@include('layers.parts.navbar')
+@include('parts.navbar')
 
 {{--محل قرار گرفتن سکشن ها--}}
 @yield('content')

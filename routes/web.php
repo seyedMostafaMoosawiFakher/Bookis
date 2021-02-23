@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookDetailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
@@ -18,7 +19,7 @@ use App\Http\Controllers\HomeController;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-Route::resource('user',UserController::class);
+//Route::resource('user',UserController::class);
 
 Route::resource('auth',AuthController::class)->except(['create']);
 Route::post('/auth/create',[AuthController::class, 'create'])->name('auth.create');
@@ -27,7 +28,9 @@ Route::get('/logout/{user}',[AuthController::class, 'logout'])->name('auth.logou
 
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::resource('books', BookController::class);
+Route::resource('books', BookController::class);
+Route::resource('users', UserController::class);
+Route::resource('books.book-details', BookDetailController::class);
 });
 
 

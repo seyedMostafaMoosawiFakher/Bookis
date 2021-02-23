@@ -17,7 +17,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $data['books'] = Book::all();
+        $data['books'] = Book::latest()->paginate(5);
 
         return view('admin.book.index', compact('data'));
     }
@@ -32,9 +32,9 @@ class BookController extends Controller
 
         $attributes = $request->validate([
             'name' => 'required|string',
-//            'subject' => 'required|string',
-//            'language' => 'required|string',
-//            'description' => 'string|max:2000'
+            'subject' => '',
+            'language' => '',
+            'description' => ''
           ]);
 
         Book::create($attributes);
@@ -60,9 +60,9 @@ class BookController extends Controller
     {
         $attributes = $request->validate([
             'name' => 'required|string',
-//            'subject' => 'required|string',
-//            'language' => 'required|string',
-//            'description' => 'string|max:2000'
+            'subject' => '',
+            'language' => '',
+            'description' => ''
         ]);
 
         $book->name = $attributes['name'];

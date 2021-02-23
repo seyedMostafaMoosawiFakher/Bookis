@@ -22,7 +22,7 @@ class CreateProfilesTable extends Migration
             $table->string('education',50)->nullable();
             $table->string('job',50)->nullable();
             $table->string('biography',2000)->nullable();
-            $table->string('Favorits-reading',50)->nullable();
+            $table->string('favorits_reading',50)->nullable();
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 

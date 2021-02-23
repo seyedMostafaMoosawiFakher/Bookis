@@ -1,4 +1,4 @@
-@extends('layers.parts.master')
+@extends('parts.master')
 @section('content')
 <table>
         @foreach($users as $user)

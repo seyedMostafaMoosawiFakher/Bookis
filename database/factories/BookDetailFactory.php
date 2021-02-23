@@ -22,17 +22,17 @@ class BookDetailFactory extends Factory
     public function definition()
     {
         return [
-            'writters'  => $this->faker->text(300),
-            'Publisher_id' => $this->faker->numberBetween(1,3),
+            'writter_id'  => $this->faker->numberBetween(1,3),
+            'publisher_id' => $this->faker->numberBetween(1,3),
             'publication_date' => $this->faker->date('y-m-d','now'),
             'publication_place' => $this->faker->text(100),
             'edition' => $this->faker->numberBetween(1,6),
             'edit_version' => $this->faker->numberBetween(1,3),
             'number_of_pages' => $this->faker->numberBetween(100,600),
-            'Translation' => $this->faker->text(300),
-            'Translator' => $this->faker->text(300),
+            'translation' => $this->faker->text(300),
+            'translator' => $this->faker->text(300),
             'resources' => $this->faker->text(300),
-            'book_id' => $this->faker->numberBetween(1,6),
+            'book_id' => $this->faker->numberBetween(1,9),
         ];
     }
 }
