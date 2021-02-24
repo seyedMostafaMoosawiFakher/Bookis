@@ -22,9 +22,13 @@
     <list default="true" id="ee93ab24-200c-4985-a772-a0872b23f2e6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookDetailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookDetailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/authenticate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/authenticate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/getOtpNumber.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/getOtpNumber.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/getPassword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/getPassword.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layers/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/users.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,16 +171,17 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views" />
-      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layouts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\admin\user" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\admin\book_detail" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\admin\book" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\admin" />
       <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\admin" />
+      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views" />
+      <recent name="E:\faradars\ProjehayeMan\laravelProjects\example-app\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -212,7 +217,10 @@
       <workItem from="1613930780962" duration="6394000" />
       <workItem from="1613977201583" duration="14204000" />
       <workItem from="1614010659873" duration="16574000" />
-      <workItem from="1614062963370" duration="10829000" />
+      <workItem from="1614062963370" duration="13132000" />
+      <workItem from="1614149637674" duration="25000" />
+      <workItem from="1614149819557" duration="24000" />
+      <workItem from="1614149911816" duration="25000" />
     </task>
     <servers />
   </component>

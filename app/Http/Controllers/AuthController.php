@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function index()
     {
 
-        return view('layers.authenticate');
+        return view('auth.authenticate');
     }
 
     public function create(authRequest $request)
@@ -92,7 +92,7 @@ class AuthController extends Controller
                 //در حقیقت فقط باید شماره موبایل و ای دی سطر را برای نمایش ببرد،
                 // در اینجا اس ام اس نداریم کد اعتبار سنجی اصلی را هم برای استفاده به صورت فیک می فرستیم
 
-                return view('layers.getOtpNumber', compact(['auth','otpId','otp']));
+                return view('auth.getOtpNumber', compact(['auth','otpId','otp']));
             }
             //اگر کاربر رجیستر کرده باشد
             else
@@ -104,7 +104,7 @@ class AuthController extends Controller
 
 
                 // پسورد را می گیریم و چک می کنیم اگر درست بود لاگین می کنیم
-                return view('layers.getPassword',compact('user'));
+                return view('auth.getPassword',compact('user'));
 
             }
 
@@ -150,7 +150,7 @@ class AuthController extends Controller
 
                 //در حقیقت فقط باید ایمیل و ای دی سطر را برای نمایش ببرد،
 
-                return view('layers.getOtpNumber', compact(['auth','otpId','otp']));
+                return view('auth.getOtpNumber', compact(['auth','otpId','otp']));
             }
 
             //اگر کاربر قبلا رجیستر کرده باشد
@@ -161,7 +161,7 @@ class AuthController extends Controller
                 $user = Otp::find($registered)->first()->user;
 
                 // پسورد را می گیریم و چک می کنیم اگر درست بود لاگین می کنیم
-                return view('layers.getPassword', compact('user'));
+                return view('auth.getPassword', compact('user'));
             }
 
         }

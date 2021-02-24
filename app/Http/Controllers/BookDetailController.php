@@ -37,7 +37,7 @@ class BookDetailController extends Controller
     public function store(Request $request, Book $book)
     {
         $attributes = $request->validate([
-            'book_id' => '',
+//      برای استفاده از فساد این باید باشد.      'book_id' => '',
             'writter_id'  => 'Nullable|Numeric',
             'publisher_id' => 'Nullable|Numeric',
             'publication_date' => 'Nullable|Date',
@@ -49,8 +49,11 @@ class BookDetailController extends Controller
             'translator' => 'Nullable|String',
             'resources' => 'Nullable|String',
         ]);
+        
+//می توانیم از فساد هم استفاده کنیم.
+//        BookDetail::create($attributes);
 
-        BookDetail::create($attributes);
+        $book->bookDetails()->create($attributes);
 
         $data['book'] = $book->id;
 
